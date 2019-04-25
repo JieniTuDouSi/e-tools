@@ -5,13 +5,18 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>Formatting SQL</title>
-    <link rel="stylesheet" type="text/css" href="../lib/codemirror/lib/codemirror.css">
     <link rel="stylesheet" type="text/css" href="../lib/codemirror/theme/material.css">
     <link rel="stylesheet" type="text/css" href="../lib/codemirror/theme/erlang-dark.css">
     <link rel="stylesheet" href="../layui/css/layui.css">
+    <link rel="stylesheet" type="text/css" href="../lib/codemirror/lib/codemirror.css">
+    <link rel="stylesheet" type="text/css" href="../lib/codemirror/addon/dialog.css">
     <link rel="stylesheet" type="text/css" href="../css/codeMirror.css">
     <script type="text/javascript" src="../lib/codemirror/lib/codemirror.js"></script>
     <script type="text/javascript" src="../lib/codemirror/mode/sql/sql.js"></script>
+    <script type="text/javascript" src="../lib/codemirror/addon/dialog.js"></script>
+    <script type="text/javascript" src="../lib/codemirror/addon/search.js"></script>
+    <script type="text/javascript" src="../lib/codemirror/addon/searchcursor.js"></script>
+    <script type="text/javascript" src="../lib/codemirror/addon/jump-to-line.js"></script>
     <script src="../lib/jquery/jquery.js"></script>
     <script src="../lib/jquery/jquery.cookie.js"></script>
     <script src="../lib/jsbeautify/beautify.js"></script>
@@ -120,6 +125,7 @@
                     "value": $(this).attr("data-func")
                 });
                 $.ajax({
+                    type: "POST",
                     data: reqData,
                     url: 'http://127.0.0.1:38664/process_get',
                     dataType: 'json',
@@ -147,6 +153,30 @@
 
 
         });
+    </script>
+    <script>
+        window.onresize = function () {
+            resizeContentSize()
+        } // 页面初始化就调整高度
+        window.onload = function () {
+            resizeContentSize()
+        }
+
+        function resizeContentSize() {
+            var _TextareaArr = document.getElementsByClassName("CodeMirror");
+            var tempTextarea = _TextareaArr[0];
+            var areaHeight = tempTextarea.offsetHeight;
+            var bodyHeight = document.body.clientHeight;
+            var per = areaHeight / bodyHeight; // 窗口大小事件监控
+            var currBoxHeight = document.documentElement.clientHeight;
+            //获取当前容器的高度
+            temp_box_height = currBoxHeight;
+            for (let index = 0; index < _TextareaArr.length; index++) {
+                const element = _TextareaArr[index];
+                element.style.height = (currBoxHeight *
+                    per) - 10 + 'px';
+            }
+        }
     </script>
 </body>
 

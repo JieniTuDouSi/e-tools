@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>格式化HTML/Javascript/CSS</title>
+    <title>Форматирование JSON</title>
     <link rel="stylesheet" type="text/css" href="../lib/codemirror/theme/material.css">
     <link rel="stylesheet" type="text/css" href="../lib/codemirror/theme/erlang-dark.css">
     <link rel="stylesheet" href="../layui/css/layui.css">
@@ -22,11 +22,13 @@
     <script src="../lib/jsbeautify/beautify.js"></script>
     <script src="../lib/jsbeautify/beautify-css.js"></script>
     <script src="../lib/jsbeautify/beautify-html.js"></script>
+    <script src="../lib/xml-js-paraser/xml2json.js"></script>
+    <script src="../lib/xml-js-paraser/json2xml.js"></script>
 </head>
 
 <body>
     <fieldset class="layui-elem-field layui-field-title">
-        <legend>格式化HTML/CSS/Javascript
+        <legend>Форматирование JSON
             <div class="layui-input-inline" style="text-align: right;">
                 <select name="select_theme" id="select_theme">
                     <option selected>default</option>
@@ -38,16 +40,19 @@
     </fieldset>
     <form class="layui-form " action="">
         <input type="hidden" name="hidden_syntax" id="hidden_syntax" value="">
-        <div style="display: none;" name="hidden_default_text" id="hidden_default_text">if ('this_is'==/an_example/){of_beautifier();}else{var a=b?(c%d):e[f];}</div>
+        <div style="display: none;" name="hidden_default_text" id="hidden_default_text">{"name":"suremotoo","hobbies":["sleep","eat"]}</div>
         <div class="layui-form-item layui-form-text">
             <div class="layui-row">
                 <div class="layui-col-xs12">
                     <div style="line-height: 0">
                         <textarea id="source" style="height:280px;" rows="20" cols="160"></textarea>
                         <center>
-                            <button class="layui-btn  submit" type="button"><strong>Beautify JavaScript or HTML</strong> <em>(ctrl-enter)</em></button>
-                            <button class="layui-btn " type="button" id="btn_compress">
-                                <strong>Compress Code</strong>
+                            <button class="layui-btn  submit" type="button"><strong>Усовершенствовать JSON</strong> <em>(ctrl-enter)</em></button>
+                            <button class="layui-btn " type="button" id="btn_compress" data-json="json">
+                                <strong>Минифицировать код</strong>
+                            </button>
+                            <button class="layui-btn " type="button" id="btn_xml_parser">
+                                <strong>изменение XML </strong>
                             </button>
                         </center>
                     </div>

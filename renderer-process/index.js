@@ -1,6 +1,8 @@
 const shell = require('electron').shell
 const path = require('path')
 const url = require('url')
+const Store = require('electron-store');
+const store = new Store();
 
 layui.use(['element'], function() {
     var $ = layui.jquery,
@@ -17,13 +19,12 @@ layui.use(['element'], function() {
                 type = othis.data('type'),
                 href = othis.data('href');
             id = othis.data('id');
-
             // var tab_content = '<object tab-id="'+id+'" type="text/html" data="' + href + '" width="100%" height="100%"></object>';
             var tab_content = '<iframe id="' + id + '" tab-id="' + id + '" frameborder="0" src="' + href + '"  width="100%" height="100%"></iframe>';
 
             //新增一个Tab项
             element.tabAdd('tab_filter', {
-                title: othis.text(),
+                title: othis.attr('title'),
                 content: tab_content,
                 id: id
             });
@@ -193,7 +194,11 @@ layui.use(['element'], function() {
         var othis = $(this),
             language = othis.data('language');
              var location = window.location;
+             store.set("languageStore", language);
         switch (language) {
+            case "ru":
+                location.href = "index-ru.html"
+                break;
             case "us":
                 location.href = "index-us.html"
                 break;
